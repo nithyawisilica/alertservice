@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.track</groupId>
 	<artifactId>alerts</artifactId>
-	<version>0.0.2-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>alerts</name>
 	<description>Alert service</description>
 	<properties>
@@ -25,6 +25,7 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
+			<version>1.18.22</version>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
@@ -46,6 +47,7 @@
 	</dependencies>
 
 	<build>
+		<finalName>trackAlertService-${version}</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

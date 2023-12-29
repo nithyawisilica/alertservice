@@ -31,7 +31,7 @@ public class CacheService {
         }
     }
 
-    public Set getSortedCacheValue(int cacheIndex) {
+    public Set<String> getSortedCacheValue(int cacheIndex) {
         switch (cacheIndex) {
             case RedisUtils.DB_BRIDGE_CACHE:
                 return sortedCache.opsForZSet().range("low_battery_tags" ,0, 3);

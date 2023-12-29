@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="true">
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <property name="FILE_PATH" value="/var/logs/wisilica/services/alert"/>
+    <property name="FILE_WRITE_PATTERN" value="%d{HH:mm:ss.SSS} [%thread] %-5level %logger{20}- %msg%n" />
+   <!--  Common logger  -->
+    <appender name="ALERT-LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${FILE_PATH}/alert.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${FILE_PATH}/old/alert.log.%d{yyyy-MM-dd}.%i.gz</fileNamePattern>
+            <maxFileSize>500MB</maxFileSize>
+            <maxHistory>10</maxHistory>
+            <totalSizeCap>50GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${FILE_WRITE_PATTERN}</pattern>
+        </encoder>
+    </appender>
+   <!-- Battery AlertLogger -->
+    <appender name="BATTERY-LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${FILE_PATH}/battery/battery.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${FILE_PATH}/battery/old/battery.log.%d{yyyy-MM-dd}.%i.gz</fileNamePattern>
+            <maxFileSize>500MB</maxFileSize>
+            <maxHistory>10</maxHistory>
+            <totalSizeCap>5GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${FILE_WRITE_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Tamper AlertLogger -->
+    <appender name="TAMPER-LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${FILE_PATH}/tamper/tamper.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${FILE_PATH}/tamper/old/tamper.log.%d{yyyy-MM-dd}.%i.gz</fileNamePattern>
+            <maxFileSize>500MB</maxFileSize>
+            <maxHistory>10</maxHistory>
+            <totalSizeCap>5GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${FILE_WRITE_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoders are  by default assigned the type
+             ch.qos.logback.classic.encoder.PatternLayoutEncoder -->
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{20}- %msg%n</pattern>
+        </encoder>
+    </appender>
+    <appender>
+
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT" />
+    </root>
+
+    <logger name="com.track.alerts" level="debug" additivity="false">
+        <appender-ref ref="ALERT-LOG" />
+    </logger>
+    <logger name="batteryLog" level="info" additivity="false">
+        <appender-ref ref="BATTERY-LOG" />
+    </logger>
+    <logger name="tamperLog" level="info" additivity="false">
+        <appender-ref ref="TAMPER-LOG" />
+    </logger>
+</configuration>

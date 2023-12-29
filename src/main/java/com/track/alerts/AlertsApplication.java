@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -30,18 +32,12 @@ public class AlertsApplication {
 		//System.out.println("Adaptor Version : " + LogUtils.getApplicationVersion());
 	}
 
-	@Scheduled(fixedRate = 1000)
-	public void startBatteryAlert() throws InterruptedException {
-		 batteryService.sendBatteryAlert();
+	@EventListener(ApplicationReadyEvent.class)
+	private void print() {
+		LOGGER.info("Alert Service Version : {}" , LogUtils.getApplicationVersion());
+		System.out.println("Alert Service Version : " + LogUtils.getApplicationVersion());
 	}
 
 
-	@Scheduled(fixedRate = 1000)
-	public void startTamperAlert(){
-		//Thread.currentThread().setName("Tamper");
-		//System.out.println("Tamper  " +Thread.currentThread().getName());
-//		System.out.println("Tamper  " + Thread.currentThread().getName()+System.currentTimeMillis());
-		//sortedCache.execute(RedisConnectionCommands::ping);
-	}
 
 }
