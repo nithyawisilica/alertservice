@@ -1,6 +1,6 @@
 package com.track.alerts.configurations;
 
-import com.track.alert.constants.Constants;
+import com.track.alerts.constants.Constants;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,30 +1,30 @@
 package com.track.alerts.services.impl;
 
-import com.track.alert.constants.Constants;
-import com.track.alert.service.CacheService;
-import lombok.extern.slf4j.Slf4j;
+import com.track.alerts.services.CacheService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.dao.DataAccessException;
-import org.springframework.data.redis.connection.RedisConnection;
-import org.springframework.data.redis.core.RedisCallback;
-import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.context.annotation.Bean;
+import com.track.alerts.services.BatteryService;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
+
 @Service
-@Slf4j
-public class RedisCacheImpl implements CacheService {
+public class BatteryServiceImpl implements BatteryService {
 
     @Autowired
-    @Qualifier(Constants.DEFAULT_REDIS_TEMPLATE)
-    StringRedisTemplate defaultRedisTemplate;
+    CacheService cacheService;
+
     @Override
-    public String ping() {
-        return defaultRedisTemplate.execute(new RedisCallback<String>() {
-            @Override
-            public String doInRedis(RedisConnection connection) throws DataAccessException {
-                return connection.ping();
-            }
-        });
+    public void sendBatteryAlert(){
+
+        String sortedData = cacheService.getCacheValue(0,"{RC}ROI76RI76");
+        System.out.println(sortedData);
+        Set sortedBatteryData = cacheService.getSortedCacheValue(0);
+        System.out.println(sortedBatteryData);
+
+        //AlertCountCheck alertCountCheck = cacheService.getLastAlertByType(rootOrgId,tagId,AlertTypeEnum.BATTERY_ALERT_TYPE);
+        System.out.println("Hiii");
     }
+
+
 }
