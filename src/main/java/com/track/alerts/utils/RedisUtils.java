@@ -59,7 +59,7 @@ public class RedisUtils {
 	public static final String LISTENER_CACHE_KEY_FORMAT= "L%dSO%d"; // L<listenerMeshId>SO<subOrgId>
 	public static final String TAG_CACHE_KEY_FORMAT= "T%dRO%d"; // T<tagShortId>RO<rootOrgId>
 	
-	public static final String TAG_INPUT_CACHE_KEY_FORMAT= "RO%dT%dS%dL%d"; // RO<rootOrgId>T<tagId>s<sequenceNumber>L<listenerId>
+	public static final String TAG_INPUT_CACHE_KEY_FORMAT= "T%d"; // T<tagId>
 	public static final String TAG_INPUT_CACHE_VALUE_FORMAT= "%d:%d:%d:%d:%d:%d:%s:%d:%d:%d:%d:%d:%d:%d"; // rootOrgId:tagId:sequenceNumber:listenerId:rssi:timestamp:battery:tamper:phoneId:temperature:humidity:motion:reserve:isPositioned
 
 	public static final String DB_TAG_TRIANGULATED_COORDINATES_CACHE_KEY_FORMAT= "RO%sT%s"; // T<rootOrgId>RO<tagId>
@@ -139,8 +139,8 @@ public class RedisUtils {
 		return String.format(TAG_CACHE_KEY_FORMAT, tagShortId, rootOrgId);
 	}
 
-	public static final String getTagInputCacheKey(long rootOrgId, long tagId, int sequenceNumber, long listenerId) {
-		return String.format(TAG_INPUT_CACHE_KEY_FORMAT, rootOrgId, tagId, sequenceNumber, listenerId);
+	public static final String getTagInputCacheKey(long tagId) {
+		return String.format(TAG_INPUT_CACHE_KEY_FORMAT, tagId);
 	}
 
 	public static final String getTagInputCacheValue(long rootOrgId, long tagId, int sequenceNumber, long listenerId, int rssi, long timestamp, float battery, int tamper, long phoneId, int temperature, int humidity, int motion, int reserve, int isPositioned) {
